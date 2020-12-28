@@ -1,0 +1,17 @@
+<mat-toolbar color="primary">
+    <h1>
+        POC Angular 8 + Spring Boot 2
+    </h1>
+    <button mat-button routerLink="/">Home</button>
+    <ng-template [ngIf]="loginService.isUserLoggedIn()" [ngIfElse]="loggedOut">
+        <button mat-button routerLink="/creatives">Creatives</button>
+        <button mat-button routerLink="/logout">Logout</button>
+    </ng-template>
+
+    <ng-template #loggedOut>
+        <button mat-button routerLink="/login">Login</button>
+    </ng-template>
+
+    <button mat-button routerLink="/about ">About</button>
+
+</mat-toolbar>

@@ -1,0 +1,90 @@
+<div class="container">
+    <div class="row">
+    </div>
+
+    <form [formGroup]="myForm" (ngSubmit)="submitForm(myForm)">
+        <div class="form-row">
+            <div class="col">
+                <input type="hidden" id="id" formControlName="id">
+            </div>
+            <div class="col">
+
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <label class="sr-only" for="groupCreatives">Group Creatives</label>
+                <input type="text" class="form-control mb-2" id="groupCreatives" placeholder="Group Creatives" formControlName="groupCreatives">
+            </div>
+            <div class="col">
+                <label class="sr-only" for="name">Creative Name</label>
+                <input type="text" class="form-control mb-2" id="name" placeholder="Creative name" formControlName="name">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <label class="sr-only" for="clickThroughURL">Click through URL</label>
+                <input type="text" class="form-control mb-2" id="clickThroughURL" placeholder="Click through URL" formControlName="clickThroughURL">
+            </div>
+            <div class="col">
+                <label class="sr-only" for="topLevelDomain">Top level domain</label>
+                <input type="text" class="form-control mb-2" id="topLevelDomain" placeholder="Top level domain" formControlName="topLevelDomain">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <label class="sr-only" for="impressionTrackingURL">Impression Tracking URL</label>
+                <input type="text" class="form-control mb-2" id="impressionTrackingURL" placeholder="Impression Tracking URL" formControlName="impressionTrackingURL">
+            </div>
+            <div class="col"></div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-12 rmpm dropzone" appDrag (files)="filesDropped($event)">
+                <div class="text-wrapper">
+                    <div class="centered">Drop your file here!</div>
+                </div>
+            </div>
+            <!--droped image preview-->
+            <div *ngFor="let file of fileToUpload">
+                <img *ngIf="file" [src]="file.url" width="100px" height="100px">
+            </div>
+
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <button mat-stroked-button class="mb-2" color="primary" [disabled]="!myForm.valid">Save Creative</button>
+            </div>
+        </div>
+
+    </form>
+
+    <div class="row">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Group Creatives</th>
+                    <th scope="col">Creative name</th>
+                    <th scope="col">Click through URL</th>
+                    <th scope="col">Top level domain</th>
+                    <th scope="col">Impression Tracking URL</th>
+                </tr>
+            </thead>
+            <tbody>
+                <mat-spinner *ngIf="creativesList.length === 0"></mat-spinner>
+                <tr *ngFor="let creative of creativesList; let i=index">
+                    <th scope="row">{{creative.id}}</th>
+                    <td>{{creative.groupCreatives}}</td>
+                    <td>{{creative.name}}</td>
+                    <td>{{creative.clickThroughURL}}</td>
+                    <td>{{creative.topLevelDomain}}</td>
+                    <td>{{creative.impressionTrackingURL}}</td>
+                    <td>
+                        <span><a [routerLink]="['/creatives', creative.id]">Edit Page</a></span>
+                        <span><button (click)="delete(creative)" class="btn btn-primary mb-2">Delete</button></span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
